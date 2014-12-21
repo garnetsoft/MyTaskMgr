@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MyTaskMgr</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="list_is_empty">List is Empty</string>
+    <string name="add_item">Add</string>
+    <string name="btn_clear">Reset</string>
+
+</resources>
