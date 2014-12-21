@@ -159,7 +159,7 @@ public class MyTaskMgr extends Activity {
                 if (line.contains("com.saveyourphone.app"))
                     line += "(DO NOT KILL)";
 
-                if (!line.startsWith("root") && !line.startsWith("system"))
+                if (!line.startsWith("root"))
                     procs.add(line);
             }
             bufferedReader.close();
