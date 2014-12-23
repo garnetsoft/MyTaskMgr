@@ -4,18 +4,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,11 +24,10 @@ import android.widget.Toast;
 import static android.os.Build.VERSION_CODES.*;
 
 public class MyTaskMgr extends Activity {
-
     private static ProgressDialog dialog;
 
     private static Handler handler;
-    private Thread downloadThread;
+    private Thread loadProcsThread;
 
     private static final String procCmd = "/system/bin/ps";  // or search through /proc file sys
     private static List<String> mProcsList = new ArrayList<String>();
@@ -69,7 +65,6 @@ public class MyTaskMgr extends Activity {
                         "You killed " + status,
                         Toast.LENGTH_LONG).show();
 
-                //killAll(null);
                 getRunningProcesses(null);  // refresh
             }
         });
@@ -95,8 +90,8 @@ public class MyTaskMgr extends Activity {
         }
 
         // check if the thread is already running
-        downloadThread = (Thread) getLastNonConfigurationInstance();
-        if (downloadThread != null && downloadThread.isAlive()) {
+        loadProcsThread = (Thread) getLastNonConfigurationInstance();
+        if (loadProcsThread != null && loadProcsThread.isAlive()) {
             dialog = ProgressDialog.show(this, "/system/bin/ps", "loading...");
         }
     }
@@ -126,17 +121,15 @@ public class MyTaskMgr extends Activity {
 
     public void getRunningProcesses(View view) {
         dialog = ProgressDialog.show(this, "/system/bin/ps", "Loading");
-        downloadThread = new MyThread();
-        downloadThread.start();
+        loadProcsThread = new BackGroundThread();
+        loadProcsThread.start();
     }
 
-    // save the thread
     @Override
     public Object onRetainNonConfigurationInstance() {
-        return downloadThread;
+        return loadProcsThread;
     }
 
-    // dismiss dialog if activity is destroyed
     @Override
     protected void onDestroy() {
         if (dialog != null && dialog.isShowing()) {
@@ -201,13 +194,13 @@ public class MyTaskMgr extends Activity {
         return commandOutput.toString();
     }
 
-    static public class MyThread extends Thread {
+    static public class BackGroundThread extends Thread {
         @Override
         public void run() {
             try {
                 mProcsList = getRunningProcs();
 
-                // Updates the user interface
+                // update UI
                 handler.sendEmptyMessage(0);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -215,5 +208,4 @@ public class MyTaskMgr extends Activity {
             }
         }
     }
-
 }

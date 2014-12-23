@@ -2,9 +2,6 @@ package com.saveyourphone.app;
 
 import java.util.Arrays;
 
-/**
- * Created by George on 12/20/14.
- */
 public class ProcInfo {
     String user;
     int pid;
@@ -19,16 +16,16 @@ public class ProcInfo {
 
     public ProcInfo(String[] infoList) {
 
-//        if (infoList.length>0) {
-//            this.user = infoList[0];
-//            this.pid = Integer.parseInt(infoList[1]);
-//            this.ppid = Integer.parseInt(infoList[2]);
-//            this.vsize = Integer.parseInt(infoList[3]);
-//            this.rss = Integer.parseInt(infoList[4]);
-//            this.wchan = infoList[5];
-//            this.pc = infoList[6];
-//            this.name = infoList[7];
-//        }
+        if (infoList.length>0) {
+            this.user = infoList[0];
+            this.pid = Integer.parseInt(infoList[1]);
+            this.ppid = Integer.parseInt(infoList[2]);
+            this.vsize = Integer.parseInt(infoList[3]);
+            this.rss = Integer.parseInt(infoList[4]);
+            this.wchan = infoList[5];
+            this.pc = infoList[6];
+            this.name = infoList[7];
+        }
 
         this.info = Arrays.toString(infoList);
     }
@@ -42,7 +39,7 @@ public class ProcInfo {
     }
 
     public String toString() {
-        StringBuilder sb = new StringBuilder(info);
+        StringBuilder sb = new StringBuilder();
         /*
         sb.append(user).append(" ");
         sb.append(pid).append(" ");
@@ -54,6 +51,7 @@ public class ProcInfo {
         sb.append(name).append(" ");
         */
 
+        sb.append(info);
         return sb.toString();
     }
 }

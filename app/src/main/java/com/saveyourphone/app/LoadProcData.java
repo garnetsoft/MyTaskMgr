@@ -8,9 +8,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by George on 12/20/14.
- */
 public class LoadProcData extends AsyncTask<Void, Void, ArrayList<String>> {
 
     private final String procCmd = "/system/bin/ps";  // or search through /proc file sys
@@ -62,4 +59,5 @@ public class LoadProcData extends AsyncTask<Void, Void, ArrayList<String>> {
     protected void onPostExecute(ArrayList<String> runningProcs) {
         mAdapter.updateProcListView(runningProcs);
     }
+
 }

@@ -16,8 +16,6 @@ public class CompleteListActivity extends Activity implements OnClickListener {
     private Button mClearBtn;
     private List<String> mItems;
     private CompleteListAdapter mListAdapter;
-    private static final int MIN = 0, MAX = 10000;
-
     private TextView runnProcsCount;
     private LoadProcData loadProcData;
 
@@ -49,15 +47,12 @@ public class CompleteListActivity extends Activity implements OnClickListener {
     }
 
     private void addItemsToList() {
-        int randomVal = MIN + (int) (Math.random() * ((MAX - MIN) + 1));
-        //mItems.add(String.valueOf(randomVal));
         loadProcData.execute();
         mListAdapter.notifyDataSetChanged();
         runnProcsCount.setText(runnProcsCount.getText().toString()+mItems.size());
     }
 
     private void clearItemsList() {
-        //mItems.clear();
         mListAdapter.updateProcListView(new ArrayList<String>());
         mListAdapter.notifyDataSetChanged();
     }

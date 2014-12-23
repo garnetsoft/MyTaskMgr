@@ -25,14 +25,17 @@ public class CompleteListAdapter extends BaseAdapter {
     public int getCount() {
         return mList.size();
     }
+
     @Override
     public Object getItem(int pos) {
         return mList.get(pos);
     }
+
     @Override
     public long getItemId(int position) {
         return position;
     }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = convertView;
@@ -56,6 +59,7 @@ public class CompleteListAdapter extends BaseAdapter {
         this.notifyDataSetChanged();
     }
 }
+
 
 class CompleteListViewHolder {
     public TextView mTVItem;
